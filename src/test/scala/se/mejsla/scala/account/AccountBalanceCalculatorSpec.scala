@@ -4,18 +4,13 @@ import org.specs2.mutable._
 
 class AccountBalanceCalculatorSpec extends Specification {
 
-  val emptyFakeService = new AccountSummaryService {
-
-    def customerSummaries = Seq()
-
-  }
-
   "The balance calculator" should {
 
-    "Throw an exception when no summary is found" in {
-      val calculator = new AccountBalanceCalculator(emptyFakeService)
+    import se.mejsla.scala.account
 
-      calculator.balanceFor("nonexistant", "nonexistant") must throwA[RuntimeException]
+    "Return None when no summary is found" in {
+
+      account.balanceFor(Seq())("nonexistant", "nonexistant") must beNone
 
     }
 
